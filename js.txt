@@ -1,0 +1,63 @@
+
+var countries=[];
+
+$(document).ready(function(){
+    ajax()
+});
+
+
+$("#send").on("click",function(){
+    ajax();
+});
+
+function ajax(){
+        $.ajax({
+            url:"https://restcountries.eu/rest/v2/all",
+            type:"GET",
+            data:{},
+            success:function( result ){
+                dataList=result.data;
+                printResult()
+            },
+            error:function( xhr ){
+                console.log("Ajax Func");
+                console.log("Error:",xhr);
+            }
+        });
+    };
+    function ajaxName(){
+        $.ajax({
+            url:"https://restcountries.eu/rest/v2/" + name,
+            type:"GET",
+            data:{},
+            success:function( result ){
+                dataList=result.data;
+                printResult()
+            },
+            error:function( xhr ){
+                console.log("AjaxName Func");
+                console.log("Error:",xhr);
+            }
+        });
+    };
+
+function  printResult(){
+    $("#result").html("");
+    for(let i=0;i<countries.length;i++)
+    {
+        let div = $(`<div class="card" style="width: 18rem;">
+        <img src=${countries[i].Flag} class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">${countries[i].Name+" "+countries[i].TopLevelDomain+" "+countries[i].Capital}</p>
+          <p class="card-text">$(
+          for(t=0;t<countries[i].Currencies.length;t++) )
+             ${countries[i].Currencies[t]}
+          </p>
+        </div>
+      </div>`)
+    $("#result").append(div);
+    }
+}
+
+
+   
